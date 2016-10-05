@@ -1,0 +1,22 @@
+{
+  "name": "poc-universal-fetch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "es6-promise": "^4.0.5",
+    "isomorphic-fetch": "^2.2.1",
+    "webpack": "^1.13.2"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^1.16.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --progress --colous",
+    "dev": "webpack-dev-server --progress --colours"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
