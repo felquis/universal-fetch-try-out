@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './index.js',
+  entry: './create-transaction.js',
   output: {
     path: __dirname,
     filename: 'output.js'

@@ -44,35 +44,56 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// require('es6-promise').polyfill()
-	__webpack_require__(1)
+	const fetch = __webpack_require__(1)
+	const { apiKey, endpoint } = __webpack_require__(4)
+	const getTransaction = __webpack_require__(5)
 
-	fetch('//offline-news-api.herokuapp.com/stories')
-	  .then(function (response) {
-	    if (response.status >= 400) {
-	      throw new Error('Bad response from server')
-	    }
+	const createTransaction = (card_id, amount) => {
+	  return fetch(`${endpoint}/transactions`, {
+	    method: 'post',
+	    body: JSON.stringify({
+	      api_key: apiKey,
+	      amount: amount,
+	      card_id: card_id
+	    })
+	  }).then((response) => response.json())
+	}
 
-	    return response.json()
-	  }).then(function (stories) {
-	    console.log(stories)
+	getTransaction()
+	  .then((transaction) => transaction.card)
+	  .then((card) => card.id)
+	  .then((card_id) => createTransaction(card_id, 1000))
+	  .then((a) => {
+	    console.log(a)
 	  })
+	  .catch((cat) => {
+	    console.log(cat)
+	  })
+
 
 
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// the whatwg-fetch polyfill installs the fetch() function
-	// on the global object (window or self)
-	//
-	// Return that as the export for use in Webpack, Browserify etc.
-	__webpack_require__(2);
-	module.exports = self.fetch.bind(self);
+	module.exports = __webpack_require__(2)
+
 
 
 /***/ },
 /* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// the whatwg-fetch polyfill installs the fetch() function
+	// on the global object (window or self)
+	//
+	// Return that as the export for use in Webpack, Browserify etc.
+	__webpack_require__(3);
+	module.exports = self.fetch.bind(self);
+
+
+/***/ },
+/* 3 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -508,6 +529,32 @@
 	  }
 	  self.fetch.polyfill = true
 	})(typeof self !== 'undefined' ? self : this);
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  apiKey: 'ak_test_tyc9JhrNIEcFu98Xh2SggIYDz7bcdu',
+	  endpoint: 'https://api.pagar.me/1'
+	}
+
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var fetch = __webpack_require__(1)
+	var { apiKey, endpoint } = __webpack_require__(4)
+
+	module.exports = function () {
+	  return fetch(`${endpoint}/transactions/509094?api_key=${apiKey}`)
+	  .then((response) => response.json())
+	}
+
+
 
 
 /***/ }

@@ -1,5 +1,5 @@
 // require('es6-promise').polyfill()
-var fetchTest = require('isomorphic-fetch')
+var fetchTest = require('./fetch.js')
 
 fetchTest('//offline-news-api.herokuapp.com/stories')
   .then(function (response) {
